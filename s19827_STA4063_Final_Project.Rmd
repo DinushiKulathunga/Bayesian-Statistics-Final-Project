@@ -1,0 +1,397 @@
+---
+title: "S19827_STA4063_Final_Project"
+output:
+  word_document: default
+  pdf_document: default
+date: "2025-08-31"
+---
+Load the data set.
+```{r}
+wine_data <- read.csv("WineQT.csv", header = TRUE, na.strings = c("","NA"))
+
+```
+Head of the data set
+```{r}
+head(wine_data)
+
+```
+Stucture of the variables
+```{r}
+str(wine_data)
+
+```
+Take all the numerical variables as a new data frame 
+wine_data.
+```{r}
+wine_data <- cbind(wine_data$fixed.acidity,wine_data$volatile.acidity, wine_data$citric.acid,wine_data$residual.sugar,wine_data$chlorides,wine_data$free.sulfur.dioxide, wine_data$total.sulfur.dioxide, wine_data$density, wine_data$pH, wine_data$sulphates, wine_data$alcohol,wine_data$quality )
+
+wine_data <- data.frame(wine_data)
+```
+Rename the columns of the new data set.
+```{r}
+names(wine_data) <- c("FixedAcidity", "VolatileAcidity", "CitricAcid", "ResidualSugar", "chlorides", "FreeSulfurDioxide", "TotalSulfurDioxide", "Density", "pH","Sulphates", "Alcohol", "Quality")
+```
+
+```{r}
+head(wine_data)
+
+```
+ Check the missing values
+```{r}
+sum(is.na(wine_data) == TRUE)
+```
+ 
+Summary output of the variables.
+```{r}
+summary(wine_data)
+```
+Standard deviations of each variable
+```{r}
+st_devs <- c(sd(wine_data$FixedAcidity), sd(wine_data$VolatileAcidity), sd(wine_data$CitricAcid),sd(wine_data$ResidualSugar), sd(wine_data$chlorides), sd(wine_data$FreeSulfurDioxide), sd(wine_data$TotalSulfurDioxide), sd(wine_data$Density), sd(wine_data$pH), sd(wine_data$Sulphates), sd(wine_data$Alcohol), sd(wine_data$Quality))
+
+st_devs
+```
+```
+```
+
+```{r}
+install.packages("ggplot2")
+
+```
+```{r}
+library(ggplot2)
+scplot1 <- ggplot(data = wine_data, aes(x = VolatileAcidity, y = FixedAcidity)) +
+  geom_point(color = "blue") +
+  xlab("Volatile Acidity") +
+  ylab("Fixed Acidity") +
+  geom_smooth(method = "lm", color = "red")
+
+scplot1
+
+```
+
+```{r}
+scplot2 <- ggplot(data = wine_data, aes(x = CitricAcid, y = FixedAcidity)) +
+  geom_point(color = "blue") +
+  xlab("Citric Acid") +
+  ylab("Fixed Acidity") +
+  geom_smooth(method = "lm", color = "red")
+
+scplot2
+
+```
+
+```{r}
+scplot3 <- ggplot(data = wine_data, aes(x = ResidualSugar, y = FixedAcidity)) +
+  geom_point(color = "blue") +
+  xlab("Residual Sugar") +
+  ylab("Fixed Acidity") +
+  geom_smooth(method = "lm", color = "red")
+
+scplot3
+
+```
+
+```{r}
+scplot4 <- ggplot(data = wine_data, aes(x = chlorides, y = FixedAcidity)) +
+  geom_point(color = "blue") +
+  xlab("chlorides") +
+  ylab("Fixed Acidity") +
+  geom_smooth(method = "lm", color = "red")
+
+scplot4
+
+```
+
+```{r}
+scplot5 <- ggplot(data = wine_data, aes(x = FreeSulfurDioxide, y = FixedAcidity)) +
+  geom_point(color = "blue") +
+  xlab("Free Sulfur Dioxide") +
+  ylab("Fixed Acidity") +
+  geom_smooth(method = "lm", color = "red")
+
+scplot5
+
+```
+
+```{r}
+scplot6 <- ggplot(data = wine_data, aes(x = TotalSulfurDioxide, y = FixedAcidity)) +
+  geom_point(color = "blue") +
+  xlab("Total Sulfur Dioxide") +
+  ylab("Fixed Acidity") +
+  geom_smooth(method = "lm", color = "red")
+
+scplot6
+
+```
+
+```{r}
+scplot7 <- ggplot(data = wine_data, aes(x = Density, y = FixedAcidity)) +
+  geom_point(color = "blue") +
+  xlab("Density") +
+  ylab("Fixed Acidity") +
+  geom_smooth(method = "lm", color = "red")
+
+scplot7
+
+```
+
+```{r}
+scplot8 <- ggplot(data = wine_data, aes(x = pH, y = FixedAcidity)) +
+  geom_point(color = "blue") +
+  xlab("pH") +
+  ylab("Fixed Acidity") +
+  geom_smooth(method = "lm", color = "red")
+
+scplot8
+
+```
+
+```{r}
+scplot9 <- ggplot(data = wine_data, aes(x = Sulphates, y = FixedAcidity)) +
+  geom_point(color = "blue") +
+  xlab("Sulphates") +
+  ylab("Fixed Acidity") +
+  geom_smooth(method = "lm", color = "red")
+
+scplot9
+
+```
+
+```{r}
+scplot10 <- ggplot(data = wine_data, aes(x = Alcohol, y = FixedAcidity)) +
+  geom_point(color = "blue") +
+  xlab("Alcohol") +
+  ylab("Fixed Acidity") +
+  geom_smooth(method = "lm", color = "red")
+
+scplot10
+
+```
+
+```{r}
+scplot11 <- ggplot(data = wine_data, aes(x = Quality, y = FixedAcidity)) +
+  geom_point(color = "blue") +
+  xlab("Quality") +
+  ylab("Fixed Acidity") +
+  geom_smooth(method = "lm", color = "red")
+
+scplot11
+
+```
+
+```{r}
+install.packages("corrplot")
+library(corrplot)
+```
+
+The correlation coefficients among each and every pair of variables. 
+```{r}
+corrplot(corr = cor(wine_data), method = "number" , order = 'FPC', type = 'lower')
+```
+
+```{r}
+cor(wine_data)
+```
+
+```{r}
+lmTemp1 <- lm(formula = FixedAcidity ~ . , data = wine_data) 
+summary(lmTemp1) 
+```
+
+```{r}
+install.packages("BAS")
+
+library(BAS)
+```
+
+Bayesian Simple Linear Regression 
+
+Fit a simple linear regression model of Density versus Fixed Acidity. 
+```{r}
+apTemp.lm1 <- lm(formula = FixedAcidity ~ Density, data = wine_data)
+summary(lmTemp1)
+```
+Obtain residuals and n. 
+```{r}
+resid <- residuals(apTemp.lm1)  
+n <- length(resid)
+```
+Calculate MSE 
+```{r}
+MSE <- 1/ (n-2) * sum((resid ^ 2))  
+MSE
+```
+
+Combine residuals and fitted values into a data frame.
+```{r}
+result <- data.frame(fitted_values = fitted.values(apTemp.lm1) , residuals =   
+residuals(apTemp.lm1))
+```
+Load library and plot residuals versus fitted values.
+```{r}
+library(ggplot2) 
+ggplot(data = result , aes(x = fitted_values , y = residuals)) + geom_point(color = "blue" , pch = 1 , size = 2) + geom_abline(intercept = 0 , slope = 0) 
++ xlab(expression(paste("Fitted Value " , widehat(FixedAcidity)))) + y
+ lab("Residuals") 
+```
+The observation with the largest fitted value. 
+```{r}
+which.max(as.vector(fitted.values(apTemp.lm1))) 
+```
+Shows this observation has the largest Density 
+```{r}
+which.max(wine_data$Density)
+```
+Normal probability plot of the residuals.
+```{r}
+plot(apTemp.lm1, which = 2) 
+
+```
+
+Credible Intervals for Slope Beta and y-Intercept alpha.
+```{r}
+output <- summary(apTemp.lm1)$coef[, 1:2]  
+output 
+```
+
+```{r}
+out <- cbind(output, confint(apTemp.lm1))  
+colnames(out) <- c("Posterior Mean", "Posterior Std", "2.5", "97.5")  
+round(out, 3)
+```
+
+Construct current prediction.
+```{r}
+alpha <- apTemp.lm1$coefficients[1] 
+beta <- apTemp.lm1$coefficients[2] 
+new_x <- seq(min(wine_data$Density) , max(wine_data$Density) , length.out = 100) 
+y_hat <- alpha + beta*new_x 
+```
+
+Get lower and upper bounds for mean. 
+```{r}
+ymean <- data.frame(predict(apTemp.lm1 , newdata = data.frame(Density = new_x) , interval = "confidence" , level = 0.95))
+```
+Get lower and upper bounds for prediction.
+```{r}
+ypred <- data.frame(predict(apTemp.lm1 , newdata = data.frame(Density = new_x) , interval = "prediction" , level = 0.95))
+```
+```{r}
+output <- data.frame(x = new_x , y_hat = y_hat , ymean_lwr = ymean$lwr , ymean_upr = ymean$upr , ypred_lwr = ypred$lwr , ypred_upr = ypred$upr)
+```
+Extract potential outlier data point. 
+```{r}
+outlier <- data.frame(x = wine_data$Density[3241] , y = wine_data$Density[3241])
+```
+Scatter plot of original.
+```{r}
+library(ggplot2)
+plot1 <- ggplot(data = wine_data , aes(x = Density , y = FixedAcidity)) + geom_point(color = "blue")
+```
+
+Add bounds of mean and prediction.
+```{r}
+plot2 <- plot1 + geom_line(data = output , aes(x = new_x , y = y_hat , color= "first") , lty = 1) + geom_line(data = output , aes(x = new_x , y = ymean_lwr , lty = "second")) +  geom_line(data = output , aes(x = new_x , y = ymean_upr , lty = "second")) + geom_line(data = output , aes(x = new_x , y = ypred_upr , lty="third")) + geom_line(data = output , aes(x = new_x , y = ypred_lwr , lty = "third")) + scale_colour_manual(values = c("orange") , labels = "Posterior mean" , name = "") + scale_linetype_manual(values = c(2,3) , labels = c("95% CI for mean" , "95% CI for predictions") , name = "") + theme_bw() + theme(legend.position = c(1,0) , legend.justification = c(3.-0.35,-0.8))
+```
+Identify potential outlier. 
+```{r}
+plot2 + geom_point(data = outlier , aes(x = x , y = y) , color = "orange" , pch = 1 , cex = 6) 
+```
+Bayesian Multiple Linear Regression 
+Use BAS.LM to run regression model.
+```{r}
+library(BAS)
+wine.bas = bas.lm(FixedAcidity ~ . , data =  wine_data , prior = "BIC" , modelprior = Bernoulli(1) ,  include.always = ~ . , n.models = 1) 
+wine.bas 
+```
+
+Posterior Means and Posterior Standard Deviations. 
+```{r}
+wine.coef = coef(wine.bas) 
+wine.coef 
+```
+visualization of the coefficients. 
+```{r}
+par(mfrow = c(2, 4) , col.lab = "darkgrey" , col.axis = "darkgrey" , col = "darkgrey") 
+plot(wine.coef , ask = F)
+```
+```{r}
+out <- confint(wine.coef)[, 1:2] 
+```
+Extract the upper and lower bounds of the credible intervals. 
+```{r}
+names <- c("posterior mean", "posterior std", colnames(out)) 
+out <- cbind(wine.coef$postmean , wine.coef$postsd , out) 
+colnames(out) <- names 
+round(out , 4)
+```
+Use BAS.LM to run regression model. 
+```{r}
+wine.bas2 <- bas.lm(FixedAcidity ~ . , data = wine_data , prior = "BIC" , modelprior = Bernoulli(1) , 
+n.models = 1) 
+wine.bas2 
+```
+
+Bayesian Model Selection
+```{r}
+modelSelection <- step(lmTemp1, k = log(nrow(wine_data)))
+```
+
+```{r}
+basModel1 <- bas.lm(formula = FixedAcidity ~ . , data = wine_data , 
+prior = "BIC" , modelprior = uniform()) 
+basCoeff <- coef(basModel1)  
+basCoeff 
+```
+Find the index of the model with the largest logmarg.
+```{r}
+best <- which.max(basModel1$logmarg)
+```
+Retreat the index of variables in the best model, with 0 as the index of the intercept.
+```{r}
+bestModel <- basModel1$which[[best]] 
+bestModel
+```
+Create an indicator vector indicating which variables are used in the best model.
+```{r}
+bestGamma <- rep(0,basModel1$n.vars)
+```
+
+```{r}
+bestGamma[bestModel + 1] = 1
+bestGamma
+```
+
+Coefficient Estimates Under Reference Prior for Best BIC Model
+Fit the best BIC model by imposing which variables to be used using the indicators. 
+```{r}
+wine.bestBIC <- bas.lm(FixedAcidity ~ . , data = wine_data, prior = "BIC" , n.models = 1 , bestmodel = bestGamma , modelprior = uniform())
+```
+```{r}
+wine.coeff <- coef(wine.bestBIC)
+```
+
+```{r}
+out <- confint(wine.coeff)[,1:2]
+```
+Combine results and construct summary table.
+```{r}
+coef.BIC <- cbind(wine.coeff$postmean , wine.coeff$postsd , out)  
+names <- c("post mean" , "post sd" , colnames(out)) 
+colnames(coef.BIC) <- names 
+coef.BIC
+```
+
+Calculating Posterior Probability 
+```{r}
+wine_bas <- bas.lm(FixedAcidity ~ VolatileAcidity + CitricAcid + ResidualSugar + chlorides + FreeSulfurDioxide + TotalSulfurDioxide + Density + pH + Sulphates + Alcohol + Quality , data = wine_data , prior = "BIC" , modelprior = uniform())
+```
+
+```{r}
+round(summary(wine_bas) , 3)
+```
+The marginal posterior inclusion probability (pip) 
+```{r}
+print(wine_bas)
+```
